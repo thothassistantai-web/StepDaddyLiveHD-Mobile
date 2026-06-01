@@ -4,6 +4,8 @@ set -euo pipefail
 PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$PROJECT_DIR"
 
+export PATH="/data/data/com.termux/files/usr/bin:$PATH"
+
 ok() { printf '[OK] %s\n' "$1"; }
 warn() { printf '[WARN] %s\n' "$1"; }
 fail() { printf '[FAIL] %s\n' "$1" >&2; exit 1; }

@@ -34,6 +34,8 @@ cd ~/stepdaddy
 ./start.sh
 ```
 
+On Termux, `install.sh` also writes `~/.termux/boot/start-stepdaddy.sh` so the app starts automatically after reboot.
+
 Then open in your phone's browser:
 
 ```
@@ -125,6 +127,7 @@ http://127.0.0.1:3000/playlist.m3u8
 - The backend preloads channels on startup to avoid blank first-load
 - EPG data is cached locally and refreshes every 24h by default
 - Playlists are generated dynamically — no static `.m3u` file on disk
+- `start.sh` keeps a Termux wake lock enabled so the backend survives Android sleep more reliably
 - `SHARE_SECRET` must be set to enable share links
 
 ## License

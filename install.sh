@@ -80,6 +80,23 @@ if [ ! -f .env.termux ]; then
   ok "Created .env.termux from template (edit to customize)"
 fi
 
+TERMUX_BOOT_DIR="$HOME/.termux/boot"
+TERMUX_BOOT_SCRIPT="$TERMUX_BOOT_DIR/start-stepdaddy.sh"
+mkdir -p "$TERMUX_BOOT_DIR"
+cat > "$TERMUX_BOOT_SCRIPT" <<EOF
+#!/data/data/com.termux/files/usr/bin/bash
+set -euo pipefail
+
+ROOT="$PROJECT_DIR"
+export PATH="/data/data/com.termux/files/usr/bin:\$PATH"
+
+termux-wake-lock >/dev/null 2>&1 || true
+cd "\$ROOT"
+exec bash start.sh
+EOF
+chmod 755 "$TERMUX_BOOT_SCRIPT"
+ok "Installed Termux boot hook at $TERMUX_BOOT_SCRIPT"
+
 ok "Installation completed successfully"
 echo ""
 echo "Next step: ./start.sh"
