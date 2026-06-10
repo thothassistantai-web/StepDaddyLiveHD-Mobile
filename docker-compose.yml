@@ -1,0 +1,20 @@
+services:
+  step-daddy-live-hd:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PORT: ${PORT}
+        API_URL: ${API_URL}
+        PROXY_CONTENT: ${PROXY_CONTENT}
+        SOCKS5: ${SOCKS5}
+    environment:
+      - PORT=${PORT}
+      - API_URL=${API_URL}
+      - PROXY_CONTENT=${PROXY_CONTENT}
+      - SOCKS5=${SOCKS5}
+    ports:
+      - "${PORT}:${PORT}"
+    restart: unless-stopped
+    env_file:
+      - .env
