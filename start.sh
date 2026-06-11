@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
 
 PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -12,7 +12,7 @@ fail() { printf '[FAIL] %s\n' "$1" >&2; exit 1; }
 
 [ -d venv ] || fail "Virtual environment not found. Run ./install.sh first."
 [ -f webui/index.html ] || fail "Prebuilt UI missing at webui/index.html"
-[ -f StepDaddyLiveHD/backend_termux_app.py ] || fail "Backend entrypoint missing"
+[ -f app/backend_termux_app.py ] || fail "Backend entrypoint missing"
 
 if [ -f .env.termux ]; then
   set -a
@@ -29,16 +29,16 @@ LOG_FILE="$PROJECT_DIR/logs/backend-$(date +%Y%m%d-%H%M%S).log"
 
 termux-wake-lock >/dev/null 2>&1 || true
 
-if pgrep -f "uvicorn StepDaddyLiveHD.backend_termux_app:fastapi_app" >/dev/null 2>&1; then
+if pgrep -f "uvicorn app.backend_termux_app:fastapi_app" >/dev/null 2>&1; then
   warn "Existing backend detected; stopping it before restart"
-  pkill -f "uvicorn StepDaddyLiveHD.backend_termux_app:fastapi_app" >/dev/null 2>&1 || true
+  pkill -f "uvicorn app.backend_termux_app:fastapi_app" >/dev/null 2>&1 || true
   sleep 2
 fi
 
 # shellcheck disable=SC1091
 source venv/bin/activate
 
-nohup uvicorn StepDaddyLiveHD.backend_termux_app:fastapi_app --host 0.0.0.0 --port "$PORT" >"$LOG_FILE" 2>&1 < /dev/null &
+nohup uvicorn app.backend_termux_app:fastapi_app --host 0.0.0.0 --port "$PORT" >"$LOG_FILE" 2>&1 < /dev/null &
 PID=$!
 echo "$PID" > .stepdaddy-backend.pid
 

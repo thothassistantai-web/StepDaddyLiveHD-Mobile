@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
 
 PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -9,10 +9,10 @@ warn() { printf '[WARN] %s\n' "$1"; }
 fail() { printf '[FAIL] %s\n' "$1" >&2; exit 1; }
 
 REQUIRED_FILES=(
-  "StepDaddyLiveHD/backend.py"
-  "StepDaddyLiveHD/backend_termux_app.py"
-  "StepDaddyLiveHD/step_daddy.py"
-  "StepDaddyLiveHD/meta.json"
+  "app/backend.py"
+  "app/backend_termux_app.py"
+  "app/step_daddy.py"
+  "app/meta.json"
   "requirements.txt"
   "webui/index.html"
 )
@@ -84,7 +84,7 @@ TERMUX_BOOT_DIR="$HOME/.termux/boot"
 TERMUX_BOOT_SCRIPT="$TERMUX_BOOT_DIR/start-stepdaddy.sh"
 mkdir -p "$TERMUX_BOOT_DIR"
 cat > "$TERMUX_BOOT_SCRIPT" <<EOF
-#!/data/data/com.termux/files/usr/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
 
 ROOT="$PROJECT_DIR"

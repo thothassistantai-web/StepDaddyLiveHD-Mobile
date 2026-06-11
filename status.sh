@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")"
 if [ -f .env.termux ]; then
@@ -11,7 +11,7 @@ echo "=== StepDaddyLiveHD Status ==="
 echo "PORT=$PORT"
 echo ""
 echo "--- Process ---"
-ps -ef | grep -i "uvicorn StepDaddyLiveHD.backend_termux_app" | grep -v grep || echo "(not running)"
+ps -ef | grep -i "uvicorn app.backend_termux_app:fastapi_app" | grep -v grep || echo "(not running)"
 echo ""
 echo "--- Endpoints ---"
 check() {

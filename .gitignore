@@ -21,3 +21,5 @@ release/
 .watchdog-state
 .states/
 .logo-cache-test/
+.tmp-debug/
+app/epg_merged_cache.xml.gz
